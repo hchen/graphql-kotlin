@@ -77,14 +77,6 @@ internal class FederatedSchemaValidator {
             }
         }
 
-        // [ERROR] federated base type references @external fields
-        if (!extendedType) {
-            val externalFields = fields.filter { it.hasAppliedDirective(EXTERNAL_DIRECTIVE_NAME) }.map { it.name }
-            if (externalFields.isNotEmpty()) {
-                errors.add("base $federatedType type has fields marked with @external directive, fields=$externalFields")
-            }
-        }
-
         if (errors.isNotEmpty()) {
             throw InvalidFederatedSchema(errors)
         }

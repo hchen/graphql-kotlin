@@ -23,11 +23,5 @@ import graphql.schema.GraphQLFieldDefinition
 // [ERROR] @requires specified on base type
 // [ERROR] @requires specifies non-existent fields
 internal fun validateRequiresDirective(validatedType: String, validatedField: GraphQLFieldDefinition, fieldMap: Map<String, GraphQLFieldDefinition>, extendedType: Boolean): List<String> {
-    val errors = mutableListOf<String>()
-    if (extendedType) {
-        errors.addAll(validateDirective("$validatedType.${validatedField.name}", REQUIRES_DIRECTIVE_NAME, validatedField.allAppliedDirectivesByName, fieldMap, extendedType))
-    } else {
-        errors.add("base $validatedType type has fields marked with @requires directive, validatedField=${validatedField.name}")
-    }
-    return errors
+    return validateDirective("$validatedType.${validatedField.name}", REQUIRES_DIRECTIVE_NAME, validatedField.allAppliedDirectivesByName, fieldMap, extendedType)
 }
